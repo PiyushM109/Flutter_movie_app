@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../utils/text.dart';
 
-class TrendingMovies extends StatelessWidget {
-  final List trending;
-  const TrendingMovies({
+class TvList extends StatelessWidget {
+  final String name;
+  final List list;
+  const TvList({
     super.key,
-    required this.trending,
+    required this.list,
+    required this.name,
   });
 
   @override
@@ -17,8 +19,8 @@ class TrendingMovies extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const MyText(
-              text: 'Trending Movies',
+             MyText(
+              text: name,
               color: Colors.white,
               size: 15,
             ),
@@ -34,13 +36,13 @@ class TrendingMovies extends StatelessWidget {
         Container(
           height: 270,
           child: ListView.builder(
-            itemCount: trending.length,
+            itemCount: list.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {},
                 child: Container(
-                  width: 140,
+                  width: 150,
                   child: Column(
                     children: [
                       Container(
@@ -49,7 +51,7 @@ class TrendingMovies extends StatelessWidget {
                             image: DecorationImage(
                                 image: NetworkImage(
                                     'https://image.tmdb.org/t/p/w500' +
-                                        trending[index]['poster_path']))),
+                                        list[index]['poster_path']))),
                       ),
                       Container(
                         height: 70,
@@ -57,8 +59,8 @@ class TrendingMovies extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: 
                               MyText(
-                                  text: trending[index]['title'] != null
-                                      ? trending[index]['title']
+                                  text: list[index]['original_name'] != null
+                                      ? list[index]['original_name']
                                       : 'Loading',
                                   color: Colors.white,
                                   size: 10),

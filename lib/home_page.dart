@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/utils/text.dart';
-import 'package:movie_app/widgets/trending.dart';
+import 'package:movie_app/widgets/list_builder.dart';
+import 'package:movie_app/widgets/tv.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 class HomePage extends StatefulWidget {
@@ -59,8 +60,13 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.black12,
       ),
       body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: 5),
         children: [
-          TrendingMovies(trending: trendingmovies,),
+          MoviesList(list: topRatedMovies, name: 'Top Rated Movies',),
+          MoviesList(list: trendingmovies, name: 'Trending Movies 🔥'),
+          TvList(list: tv, name: 'Top TV Shows 📺',),
+          
+          
         ],
       ),
     );

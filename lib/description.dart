@@ -1,7 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:movie_app/utils/text.dart';
+import 'package:movie_app/widgets/list_builder.dart';
 
 class DescriptionPage extends StatelessWidget {
   final String name;
@@ -10,6 +9,7 @@ class DescriptionPage extends StatelessWidget {
   final String posterUrl;
   final String vote;
   final String launchOn;
+  final List clist;
 
   const DescriptionPage({
     super.key,
@@ -19,6 +19,7 @@ class DescriptionPage extends StatelessWidget {
     required this.posterUrl,
     required this.vote,
     required this.launchOn,
+    required this.clist,
   });
 
   @override
@@ -60,12 +61,12 @@ class DescriptionPage extends StatelessWidget {
                 MyText(
                         text: '   Rating - ' + vote + '⭐',
                         color: Colors.white,
-                        size: 10,
+                        size: 12,
                       ),
                 MyText(
                         text: 'Releasing Date- ' + launchOn,
                         color: Colors.white,
-                        size: 10,
+                        size: 12,
                       ),
               ],),
             ),
@@ -91,12 +92,13 @@ class DescriptionPage extends StatelessWidget {
                     child: Container(
                       padding:EdgeInsets.only(right: 10,left: 8),
                       child: MyText(
-                        text: 'Overview :-   ' + description,
+                        text: 'Overview :-   ' + description!=null ? description:'loading',
                         color: Colors.grey.shade200,
                         size: 15,
                       ),
                     ),
                   ),
+                 
                 ],
               ),
             )

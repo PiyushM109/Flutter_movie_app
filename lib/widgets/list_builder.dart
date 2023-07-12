@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/card.dart';
 import 'package:movie_app/description.dart';
 
 import '../utils/text.dart';
@@ -15,24 +16,41 @@ class MoviesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(top: 10, right: 10, left: 10),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            MyText(
-              text: name,
-              color: Colors.white,
-              size: 15,
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.grey[900],
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                MyText(
+                  text: name,
+                  color: Colors.white,
+                  size: 15,
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FullView(lists: list, name: name,)
+                          
+                    ),
+                  );
+                  },
+                  icon: const Icon(Icons.arrow_forward),
+                ),
+              ],
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.arrow_forward),
-            ),
-          ],
+          ),
         ),
         const SizedBox(
-          height: 10,
+          height: 5,
         ),
         Container(
           height: 270,
@@ -43,17 +61,25 @@ class MoviesList extends StatelessWidget {
               return InkWell(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DescriptionPage(
-                              name: list[index]['title'],
-                              description: list[index]['overview'],
-                              bannerUrl: 'https://image.tmdb.org/t/p/w500' +list[index]['backdrop_path'],
-                              posterUrl: 'https://image.tmdb.org/t/p/w500' + list[index]['poster_path'],
-                              vote: list[index]['vote_average'].toString(),
-                              launchOn: list[index]['release_date'])));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DescriptionPage(
+                          name: list[index]['title'],
+                          description: list[index]['overview'],
+                          bannerUrl: 'https://image.tmdb.org/t/p/w500' +
+                              list[index]['backdrop_path'],
+                          posterUrl: 'https://image.tmdb.org/t/p/w500' +
+                              list[index]['poster_path'],
+                          vote: list[index]['vote_average'].toString(),
+                          launchOn: list[index]['release_date'],
+                          clist:list,
+                          ),
+                          
+                    ),
+                  );
                 },
                 child: Container(
+                  height: 200,
                   width: 140,
                   child: Column(
                     children: [
@@ -74,7 +100,7 @@ class MoviesList extends StatelessWidget {
                                   ? list[index]['title']
                                   : 'Loading',
                               color: Colors.white,
-                              size: 10),
+                              size: 12),
                         ),
                       ),
                     ],

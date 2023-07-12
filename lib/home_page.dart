@@ -36,14 +36,17 @@ class _HomePageState extends State<HomePage> {
     Map trendingResult = await tmdbWithCustomLogs.v3.trending.getTrending();
     Map topRatedResult = await tmdbWithCustomLogs.v3.movies.getTopRated();
     Map tvResult = await tmdbWithCustomLogs.v3.tv.getPopular();
+    print(tvResult);
+
+    trendingResult.removeWhere((key, value) => value == null || value.toString().trim().isEmpty);
+    topRatedResult.removeWhere((key, value) => value == null || value.toString().trim().isEmpty);
+    tvResult.removeWhere((key, value) => value == null || value.toString().trim().isEmpty);
 
     setState(() {
      trendingmovies = trendingResult['results'];
      topRatedMovies = topRatedResult['results'];
      tv = tvResult['results'];
     });
-    print(trendingmovies);
-
   }
 
   @override
@@ -53,7 +56,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         centerTitle: true,
         title:  const MyText(
-          text:'Flutter Movie App',
+          text:'CineMa📹',
           color: Colors.white,
           size: 20,
         ),
@@ -62,7 +65,7 @@ class _HomePageState extends State<HomePage> {
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 5),
         children: [
-          MoviesList(list: topRatedMovies, name: 'Top Rated Movies',),
+          MoviesList(list: topRatedMovies, name: 'Top Rated Movies ⭐',),
           MoviesList(list: trendingmovies, name: 'Trending Movies 🔥'),
           TvList(list: tv, name: 'Top TV Shows 📺',),
           
